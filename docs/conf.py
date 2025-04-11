@@ -12,11 +12,13 @@ extensions = ['sphinx_needs']
 needs_external_needs = [
     {
         'url': 'https://dcalavrezo-qorix.github.io/repoA/needs.json',
-        'id_prefix': '',  # or 'MODA_' if not already in repoA
+        'base_url': 'https://dcalavrezo-qorix.github.io/repoA/',
+        'id_prefix': 'MODA_'
     },
     {
         'url': 'https://dcalavrezo-qorix.github.io/repoB/needs.json',
-        'id_prefix': '',  # customize per module
+        'base_url': 'https://dcalavrezo-qorix.github.io/repoB/',
+        'id_prefix': 'MODB_'
     }
 ]
 
