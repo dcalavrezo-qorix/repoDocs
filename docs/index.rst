@@ -1,15 +1,23 @@
-Combined Documentation
-======================
+Multi-Repo Documentation
+=========================
 
-This aggregator includes needs from Repo A and Repo B.
-
-You can reference them here. For example:
-
-- Repo A Requirement: :need:`MODA_REQ_001`
-- Repo B Requirement: :need:`MODB_REQ_001`
-
-See the full list:
+This documentation aggregates needs from multiple repositories.
 
 .. needtable::
-   :columns: id;title;status;links
-   :filter: True
+   :columns: id;title;status;tags
+   :style: table
+
+
+RepoA Needs
+-----------
+
+.. needtable::
+   :filter: "'MODA_' in id"
+   :columns: id;title;status
+
+RepoB Needs
+-----------
+
+.. needtable::
+   :filter: "'MODB_' in id"
+   :columns: id;title;status

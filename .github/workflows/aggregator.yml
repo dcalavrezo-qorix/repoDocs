@@ -1,50 +1,30 @@
-name: aggregator
+name: Build & Deploy Aggregated Docs
+
 on:
-  workflow_dispatch:
+  push:
+    branches: [main]
+
 jobs:
-  aggregate:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout aggregator repo
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      # Download artifact from Repo A
-      - name: Download RepoA docs
-        uses: actions/download-artifact@v4
-        with:
-          name: repoA-docs
-          path: imported_artifacts/repoA-docs
-        # If you need from a different repo, you might specify 'workflow' / 'run-id' / 'repository' inputs
-
-      # Download artifact from Repo B
-      - name: Download RepoB docs
-        uses: actions/download-artifact@v4
-        with:
-          name: repoB-docs
-          path: imported_artifacts/repoB-docs
-        # Similarly, specify the right source repo if needed
-
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: '3.10'
 
       - name: Install dependencies
-        run: pip install sphinx sphinx_needs
+        run: pip install sphinx sphinx-needs
 
-      - name: Build aggregator docs
-        run: |
-          sphinx-build -b html aggregator aggregator/_build/html
+      - name: Build docs
+        run: sphinx-build -b html docs docs/_build/html
 
-      - name: Upload aggregator artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: aggregator-docs
-          path: aggregator/_build/html
-
-    
-      - name: Deploy to GH Pages
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: aggregator/_build/html
+          publish_dir: docs/_build/html
